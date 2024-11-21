@@ -4,10 +4,36 @@
  */
 package DataBase;
 
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  *
  * @author 9567
  */
 public class DataBase {
+    private static DataBase instance;
+    private Connection connection;
     
+    private DataBase(){
+        try 
+        {
+            String URL = "jdbc:mysql://127.0.0.1:3306/produccion_agricola";
+            String USER = "root";
+            String PASSWORD = "";
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public static DataBase getInstance(){
+        if (instance == null) {
+            instance = new DataBase();
+        }
+        return instance;
+    }
+    public Connection getConnection(){
+        return connection;
+    }
 }
