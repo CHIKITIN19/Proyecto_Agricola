@@ -8,16 +8,16 @@ package Model.Usuarios;
  *
  * @author 9567
  */
-public class Usuarios {
+public class UsuariosDTO {
     private int id;
-    private String user_name; //cedula
-    private String password; //default bd
-    private String rol; 
+    private String user_name;
+    private String password;
+    private String rol;
 
-    public Usuarios() {
+    public UsuariosDTO() {
     }
 
-    public Usuarios(int id, String user_name, String password, String rol) {
+    public UsuariosDTO(int id, String user_name, String password, String rol) {
         this.id = id;
         this.user_name = user_name;
         this.password = password;
@@ -28,33 +28,16 @@ public class Usuarios {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getUser_name() {
         return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-    
-    
 }
