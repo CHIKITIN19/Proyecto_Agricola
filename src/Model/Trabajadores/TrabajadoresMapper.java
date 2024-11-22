@@ -4,10 +4,44 @@
  */
 package Model.Trabajadores;
 
+import Model.Mapper.Mapper;
+
 /**
  *
  * @author 9567
  */
-public class TrabajadoresMapper {
+public class TrabajadoresMapper implements Mapper<Trabajadores, TrabajadoresDTO>{
+
+    @Override
+    public TrabajadoresDTO toDto(Trabajadores ent) {
+        if(ent==null){
+            return null;
+        }
+        return new TrabajadoresDTO(
+                ent.getCedula(), 
+                ent.getNombre(), 
+                ent.getTelefono(), 
+                ent.getCorreo(),
+                ent.getPuesto(),
+                ent.getHorario(), 
+                ent.getSalario()
+        );
+    }
+
+    @Override
+    public Trabajadores toEntity(TrabajadoresDTO dto) {
+        if(dto==null){
+            return null;
+        }
+        return new Trabajadores(
+                dto.getCedula(),
+                dto.getNombre(), 
+                dto.getTelefono(), 
+                dto.getCorreo(), 
+                dto.getPuesto(), 
+                dto.getHorario(), 
+                dto.getSalario()
+        );
+    }
     
 }

@@ -63,7 +63,7 @@ public class TrabajadoresDAO extends Dao<TrabajadoresDTO>{
     @Override
     public List<TrabajadoresDTO> readAll() throws SQLException {
         List<TrabajadoresDTO> trabajadores = new ArrayList<>();
-        String sql = "SELECT * FROM trabajadores";  // Consulta para obtener todos los trabajadores
+        String sql = "SELECT * FROM Trabajadores";  // Consulta para obtener todos los trabajadores
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
              
@@ -88,7 +88,7 @@ public class TrabajadoresDAO extends Dao<TrabajadoresDTO>{
 
     @Override
     public boolean update(TrabajadoresDTO dto) throws SQLException {
-        String sql = "UPDATE trabajadores SET nombre = ?, telefono = ?, correo = ?, puesto = ?, horario = ?, salario = ? WHERE cedula = ?";
+        String sql = "UPDATE Trabajadores SET nombre = ?, telefono = ?, correo = ?, puesto = ?, horario = ?, salario = ? WHERE cedula = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, dto.getNombre());
             stmt.setString(2, dto.getTelefono());
@@ -108,7 +108,7 @@ public class TrabajadoresDAO extends Dao<TrabajadoresDTO>{
 
     @Override
     public boolean delete(Object id) throws SQLException {
-        String sql = "DELETE FROM trabajadores WHERE cedula = ?";
+        String sql = "DELETE FROM Trabajadores WHERE cedula = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, String.valueOf(id));
             

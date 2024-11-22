@@ -25,12 +25,18 @@ public class UsuariosDAO extends Dao<UsuariosDTO>{
 
     @Override
     public boolean create(UsuariosDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "INSERT INTO Usuario (user_name, password, rol) VALUES (?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, dto.getUser_name());
+            ps.setString(2, dto.getPassword());
+            ps.setInt(3, dto.getRol());
+            return ps.executeUpdate()>0;
+        }
     }
 
     @Override
     public UsuariosDTO read(Object id) throws SQLException {
-        String query = "SELECT * FROM Usuarios WHERE user_name = ?";
+        String query = "SELECT * FROM Usuario WHERE user_name = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, (String) id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -39,7 +45,7 @@ public class UsuariosDAO extends Dao<UsuariosDTO>{
                         rs.getInt("id"),
                         rs.getString("user_name"),
                         rs.getString("password"),
-                        rs.getString("rol")
+                        rs.getInt("rol")
                     );
                 }
             }
@@ -50,7 +56,7 @@ public class UsuariosDAO extends Dao<UsuariosDTO>{
     @Override
     public List<UsuariosDTO> readAll() throws SQLException {
          List<UsuariosDTO> usuarios = new ArrayList<>();
-        String query = "SELECT * FROM Usuarios";
+        String query = "SELECT * FROM Usuario";
         try (PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -58,7 +64,7 @@ public class UsuariosDAO extends Dao<UsuariosDTO>{
                     rs.getInt("id"),
                     rs.getString("user_name"),
                     rs.getString("password"),
-                    rs.getString("rol")
+                    rs.getInt("rol")
                 ));
             }
         }
@@ -67,10 +73,10 @@ public class UsuariosDAO extends Dao<UsuariosDTO>{
 
     @Override
     public boolean update(UsuariosDTO dto) throws SQLException {
-        String query = "UPDATE Usuarios SET password = ?, rol = ? WHERE user_name = ?";
+        String query = "UPDATE Usuario SET password = ?, rol = ? WHERE user_name = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, dto.getPassword());
-            stmt.setString(2, dto.getRol());
+            stmt.setInt(2, dto.getRol());
             stmt.setString(3, dto.getUser_name());
             return stmt.executeUpdate() > 0;
         }
@@ -78,7 +84,7 @@ public class UsuariosDAO extends Dao<UsuariosDTO>{
 
     @Override
     public boolean delete(Object id) throws SQLException {
-        String query = "DELETE FROM Usuarios WHERE user_name = ?";
+        String query = "DELETE FROM Usuario WHERE user_name = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, (String) id);
             return stmt.executeUpdate() > 0;

@@ -22,44 +22,34 @@ public class Pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        Connection connection = null;
-        try {
-            // Obtener la conexión desde la clase DataBase
-            connection = DataBase.getInstance().getConnection();  // Obtienes la conexión
+    DataBase connection = DataBase.getInstance();
+    TrabajadoresDAO trabajadoresDAO = new TrabajadoresDAO(connection.getConnection());
+    UsuariosDAO usuariosDAO = new UsuariosDAO(connection.getConnection());
 
-            // Crear instancias de los DAOs con la conexión
-            TrabajadoresDAO trabajadoresDAO = new TrabajadoresDAO(connection);
-            UsuariosDAO usuarioDAO = new UsuariosDAO(connection);
+    try {
+        // Registrar un trabajador
+        TrabajadoresDTO nuevoTrabajador = new TrabajadoresDTO(
+            "504111", "Jean", "22", "jean@example.com",
+            "Trabajador", "Lunes a Viernes", 100.0
+        );
+        trabajadoresDAO.create(nuevoTrabajador);
+        System.out.println("Trabajador registrado correctamente.");
 
-            // Crear un trabajador
-            TrabajadoresDTO nuevoTrabajador = new TrabajadoresDTO(
-                "0011223344", "Juan Pérez", "12345678", "juan.perez@example.com",
-                "Supervisor", "Lunes a Viernes", 35000.00
-            );
-            trabajadoresDAO.create(nuevoTrabajador);
-            System.out.println("Trabajador registrado. Usuario creado automáticamente.");
+        // Registrar un usuario manualmente
+        UsuariosDTO nuevoUsuario = new UsuariosDTO("504", "123", 1);
+        usuariosDAO.create(nuevoUsuario);
+        System.out.println("Usuario asociado registrado correctamente.");
 
-            // Leer el usuario asociado al trabajador
-            UsuariosDTO usuario = usuarioDAO.read("0011223344");
-            if (usuario != null) {
-                System.out.println("Usuario encontrado: " + usuario.getUser_name() + ", Rol: " + usuario.getRol());
-            } else {
-                System.out.println("Usuario no encontrado.");
-            }
-
-            // Actualizar la contraseña si es necesario
-            //usuario.setPassword("456");
-            //usuarioDAO.update(usuario);
-            //System.out.println("Contraseña actualizada.");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-    // Cerrar la conexión a la base de datos al final
-    if (connection != null) {
-        connection.close();  // Cerrar la conexión después de la operación
-    }
+        // Leer el usuario
+        UsuariosDTO usuario = usuariosDAO.read("504");
+        if (usuario != null) {
+            System.out.println("Usuario encontrado: " + usuario.getUser_name() +
+                ", Rol: " + (usuario.getRol() == 0 ? "Administrador" : "Trabajador"));
         }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
     }
     
 }

@@ -12,13 +12,13 @@ public class UsuariosDTO {
     private int id;
     private String user_name;
     private String password;
-    private String rol;
+    private int rol;
 
     public UsuariosDTO() {
     }
 
-    public UsuariosDTO(int id, String user_name, String password, String rol) {
-        this.id = id;
+    public UsuariosDTO(int id,String user_name, String password, int rol) {
+        this.id=id;
         this.user_name = user_name;
         this.password = password;
         this.rol = rol;
@@ -36,8 +36,18 @@ public class UsuariosDTO {
         return password;
     }
 
-    public String getRol() {
+    public int getRol() {
         return rol;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public UsuariosDTO(String user_name, String password, int rol) {
+        this.user_name = user_name;
+        this.password = password;
+        this.rol = rol;
     }
 
 }

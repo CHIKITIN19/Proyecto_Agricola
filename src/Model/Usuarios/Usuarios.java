@@ -12,12 +12,12 @@ public class Usuarios {
     private int id;
     private String user_name; //cedula
     private String password; //default bd
-    private String rol; 
+    private int rol; 
 
     public Usuarios() {
     }
 
-    public Usuarios(int id, String user_name, String password, String rol) {
+    public Usuarios(int id, String user_name, String password, int rol) {
         this.id = id;
         this.user_name = user_name;
         this.password = password;
@@ -48,11 +48,11 @@ public class Usuarios {
         this.password = password;
     }
 
-    public String getRol() {
+    public int getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(int rol) {
         this.rol = rol;
     }
     

@@ -4,10 +4,17 @@
  */
 package View;
 
+import java.util.List;
+
 /**
  *
  * @author 9567
  */
-public interface View {
-    
+public interface View<Ent> {
+    public void show(Ent ent);
+    public void showAll(List<Ent> ents);
+    public void showMessage(String msg);
+     public void showSuccess(String msg);
+    public void showError(String err);
+    public boolean validateRequired();
 }
